@@ -14,3 +14,4 @@ Then you need to securely store the Slack webhook URL as a GitHub Actions secret
 - Give it the name `SLACK_WEBHOOK` and paste the webhook URL you copied from Slack
 - Save the secret
 - Now copy `securityscorecard-slack-notification.yml` on your repo's `.github/workflows` folder
+- Replace `github.com` in `securityscorecard-slack-notification.yml` with the domain of your company
