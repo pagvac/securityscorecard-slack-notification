@@ -4,6 +4,7 @@ on:
   schedule:
     # 4pm UTC on first Monday of each month
     - cron: '0 16 */100,1-7 * MON'
+  workflow_dispatch: # handy to trigger workflow manually docs.github.com/en/actions/using-workflows/manually-running-a-workflow
 
 jobs:
   scorecard:
