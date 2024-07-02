@@ -12,10 +12,10 @@ Then you need to securely store the Slack webhook URL as a GitHub Actions secret
 1. Go back to the `... More` > `Automations` > `Workflows` > `Managed by you` screen
 2. Click `SecurityScorecard Slack notification` then `Copy workflow link` button
 3. Go to the `Settings` > `Secrets and variables` > `Actions` screen on your GitHub repo
-4. Click the `New Repository secret`
+4. Click the `New Repository secret` button
 5. Give it the name `SLACK_WEBHOOK` and paste the webhook URL you copied from Slack
 6. Save the secret
 7. Now copy `securityscorecard-slack-notification.yml` to your repo's `.github/workflows` folder
-8. Replace `github.com` in `securityscorecard-slack-notification.yml` with the domain of your company
+8. Replace `github.com` in `securityscorecard-slack-notification.yml` with the domain of your company and commit the changes
 
 The SecurityScorecard grade of the domain you specified will be posted to the Slack channel you chose above on the first Monday of each month.
