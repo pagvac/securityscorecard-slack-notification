@@ -11,9 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Grab grade
+        env:
+          DOMAIN: "github.com"
         id: grade
         run: |
-          grade=$(curl -s "https://securityscorecard.com/security-rating/github.com"|grep -oh "\"grade\":\"[A-Z]\""|cut -d \" -f4)
+          grade=$(curl -s "https://securityscorecard.com/security-rating/$DOMAIN"|grep -oh "\"grade\":\"[A-Z]\""|cut -d \" -f4)
           echo "GRADE=$grade" >> "$GITHUB_OUTPUT"
       - name: Post grade to Slack
         env:
