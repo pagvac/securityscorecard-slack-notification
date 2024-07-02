@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Grab grade
-      id: grade
-      run: |
-        grade=$(curl -s "https://securityscorecard.com/security-rating/github.com"|grep -oh "\"grade\":\"[A-Z]\""|cut -d \" -f4)
-        echo "GRADE=$grade" >> "$GITHUB_OUTPUT"
+        id: grade
+        run: |
+          grade=$(curl -s "https://securityscorecard.com/security-rating/github.com"|grep -oh "\"grade\":\"[A-Z]\""|cut -d \" -f4)
+          echo "GRADE=$grade" >> "$GITHUB_OUTPUT"
       - name: Post grade to Slack
         env:
           GRADE: ${{ steps.grade.outputs.GRADE }}
