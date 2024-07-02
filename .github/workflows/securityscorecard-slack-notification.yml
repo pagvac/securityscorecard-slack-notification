@@ -4,7 +4,7 @@ on:
   schedule:
     # 4pm UTC on first Monday of each month
     - cron: '0 16 */100,1-7 * MON'
-  workflow_dispatch: # handy to trigger workflow manually docs.github.com/en/actions/using-workflows/manually-running-a-workflow
+  workflow_dispatch: # handy to trigger workflow manually. See: docs.github.com/en/actions/using-workflows/manually-running-a-workflow
 
 jobs:
   scorecard:
@@ -19,4 +19,4 @@ jobs:
         env:
           GRADE: ${{ steps.grade.outputs.GRADE }}
         run: |
-          if echo $GRADE|grep -oh [A-F];then curl -H "Content-Type: application/json" -X POST -d '{"grade":"'$GRADE'"}' ${{ secrets.SLACK_WEBHOOK }};fi
+          if echo $GRADE|grep -oh [A-F];then curl -H "Content-Type: application/json" -X POST -d '{"grade":"'$GRADE'"}' --url "'${{ secrets.SLACK_WEBHOOK }}'";fi
