@@ -11,18 +11,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Grab grade
-        env:
-          DOMAIN: "github.com"
-        id: grade
+        id: grab_grade
         run: |
-          grade=$(curl -s "https://securityscorecard.com/security-rating/$DOMAIN"|grep -oh "\"grade\":\"[A-Z]\""|cut -d \" -f4)
+          # update the following line with your company's domain name
+          domain="github.com"
+          grade=$(curl -s "https://securityscorecard.com/security-rating/$domain"|grep -oh "\"grade\":\"[A-Z]\""|cut -d \" -f4)
           echo "GRADE=$grade" >> "$GITHUB_OUTPUT"
+          echo "DOMAIN=$domain" >> "$GITHUB_OUTPUT"
       - name: Post grade to Slack
         env:
-          GRADE: ${{ steps.grade.outputs.GRADE }}
+          GRADE: ${{ steps.grab_grade.outputs.GRADE }}
+          DOMAIN: ${{ steps.grab_grade.outputs.DOMAIN }}
         run: >-
           if echo $GRADE|grep -oh [A-F];then
-            response="$(curl -H 'Content-Type: application/json' -X POST -d '{"grade":"'$GRADE'","domain":"'$DOMAIN'"}' --url '${{ secrets.SLACK_WEBHOOK }}')"
+            response="$(curl -s -H 'Content-Type: application/json' -X POST -d '{"grade":"'$GRADE'","domain":"'$DOMAIN'"}' --url '${{ secrets.SLACK_WEBHOOK }}')"
             if [ "$response" = "{\"ok\":true}" ]; then
               exit 0
             else
