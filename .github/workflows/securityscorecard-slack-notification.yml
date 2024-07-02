@@ -18,7 +18,7 @@ jobs:
       - name: Post grade to Slack
         env:
           GRADE: ${{ steps.grade.outputs.GRADE }}
-        run: |
-          if echo $GRADE|grep -oh [A-F];then \
-            curl -H "Content-Type: application/json" -X POST -d '{"grade":"'$GRADE'"}' --url "${{ secrets.SLACK_WEBHOOK }}" \
+        run: >-
+          if echo $GRADE|grep -oh [A-F];then
+            curl -H "Content-Type: application/json" -X POST -d '{"grade":"'$GRADE'"}' --url "${{ secrets.SLACK_WEBHOOK }}";
           fi
