@@ -20,9 +20,8 @@ jobs:
           GRADE: ${{ steps.grade.outputs.GRADE }}
         run: >-
           if echo $GRADE|grep -oh [A-F];then
-            response="$(curl -H "Content-Type: application/json" -X POST -d '{"grade":"'$GRADE'"}' --url "${{ secrets.SLACK_WEBHOOK }}")";
-            echo $response
-            if $response=='{"ok":true}'; then
+            response=$(curl -H "Content-Type: application/json" -X POST -d '{"grade":"'$GRADE'"}' --url "${{ secrets.SLACK_WEBHOOK }}");
+            if "$response"=="{\"ok\":true}"; then
               exit 0
             else
               exit 1
